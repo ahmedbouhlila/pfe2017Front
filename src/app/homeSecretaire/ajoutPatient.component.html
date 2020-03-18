@@ -1,0 +1,219 @@
+
+
+              
+<div class="animated fadeIn">
+  <div class="row">
+       <div class="col-md-12">
+      <div class="card">
+        <div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-pencil" aria-hidden="true"></i><strong><span style="color : white;" >   Ajouter un patient</span></strong>
+        </div>
+        <div class="card-block">
+                   
+
+  
+    <form name="form" (ngSubmit)="f.form.valid && ajout()" #f="ngForm" novalidate>
+        <table>
+            <tr> <td>
+        <div class="form-group row">
+              <label class="col-md-3 form-control-label"  [ngClass]="{ 'has-error': f.submitted && !nom_patient.valid }"for="hf-email"><strong>Nom*</strong></label>
+              <div class="col-md-9">
+
+            <input id="model-nom_patient" type="text" class="form-control" name="nom_patient" ngControl="nom_patient" [(ngModel)]="model.nom_patient" #nom_patient="ngModel"  pattern="[a-zA-Z ]*" required />
+              <div class="md-errors-spacer" [hidden]="nom_patient.valid || nom_patient.untouched">
+                
+        <div class="md-char-counter" *ngIf="nom_patient.errors && nom_patient.errors.required">
+          <font color="red">NOM is required !</font>  
+        </div>
+        <div class="md-char-counter" *ngIf="nom_patient.errors && nom_patient.errors.pattern">
+           <font color="red">il faut saisir seulement des caracteres !  </font>  
+        </div>
+    </div>
+           
+        </div>
+     </div></td><td>
+<div class="form-group row">
+              <label class="col-md-3 form-control-label"  [ngClass]="{ 'has-error': f.submitted && !prenom_patient.valid }"for="prenom"><strong>Prenom*</strong></label>
+              <div class="col-md-9">
+
+            <input id="model-prenom_patient" type="text" class="form-control" name="prenom_patient" ngControl="prenom_patient" [(ngModel)]="model.prenom_patient" #prenom_patient="ngModel"  pattern="[a-zA-Z ]*" required />
+             <div class="md-errors-spacer" [hidden]="prenom_patient.valid || prenom_patient.untouched">
+                
+        <div class="md-char-counter" *ngIf="prenom_patient.errors && prenom_patient.errors.required">
+            <font color="red">PRENOM is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="prenom_patient.errors && prenom_patient.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+           
+        </div>
+     </div>
+</td>
+<td>
+        
+ <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="date_naiss"><strong>Date de naissance*</strong></label>
+              <div class="col-md-6">
+            <input  type="date" class="form-control" name="date_naiss"  ngControl="date_naiss" [(ngModel)]="model.date_naiss" #date_naiss="ngModel"   required />
+
+ <div class="md-errors-spacer" [hidden]="date_naiss.valid || date_naiss.untouched">
+                
+        <div class="md-char-counter" *ngIf="date_naiss.errors && date_naiss.errors.required">
+          <font color="red">date_naiss is required! </font>  
+        </div>
+       
+    </div>
+           
+        </div>
+     </div>
+</td></tr><tr> <td>
+  <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="sex"><strong>Sexe*</strong></label>
+              <div class="col-md-5">
+
+    <select name="sex" ngControl="sex"  class="custom-select" class="form-control" [(ngModel)]="model.sex"  #sex="ngModel" required >
+       
+        <option *ngFor="let sex of sexs" [value]="sex.value"> 
+              
+        {{sex.value}}
+        </option>
+       
+    </select>
+     <div class="md-errors-spacer" [hidden]="sex.valid || sex.untouched">
+                
+        <div class="md-char-counter" *ngIf="sex.errors && sex.errors.required">
+            <font color="red"> sex is required</font>  
+        </div>
+       
+    </div>
+</div>
+</div>
+</td><td>
+ <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="age"><strong>Age*</strong></label>
+              <div class="col-md-5">
+            <input  id="model-age" type="text" class="form-control" name="age" ngControl="age" [(ngModel)]="model.age" #age="ngModel"  pattern="^[0-9]+$" required />
+            <div class="md-errors-spacer" [hidden]="age.valid || age.untouched">
+                
+        <div class="md-char-counter" *ngIf="age.errors && age.errors.required">
+            <font color="red"> age is required</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="age.errors && age.errors.pattern">
+            <font color="red"> il faut entrer seulement des entiers !</font>     
+        </div>
+    </div>
+           
+        </div>
+     </div>
+ </td> <td>
+  <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="groupe"><strong>Groupe sanguin*</strong></label>
+              <div class="col-md-4">
+
+    <select name="groupe"  class="custom-select" class="form-control" [(ngModel)]="model.groupe" #groupe="ngModel" required >
+        <option *ngFor="let groupe of groupes" [value]="groupe.value">   
+        {{groupe.value}}
+        </option>
+    </select>
+<div class="md-errors-spacer" [hidden]="groupe.valid || groupe.untouched">
+                
+        <div class="md-char-counter" *ngIf="groupe.errors && groupe.errors.required">
+            <font color="red"> groupe sanguin is required !</font>   
+        </div>
+       
+    </div>
+</div>
+</div>
+</td> </tr> <tr> <td>
+     <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="email"><strong>Email*</strong></label>
+              <div class="col-md-9">
+            
+        <input  id="model-email_patient" type="text" class="form-control" name="email_patient" ngControl="email_patient" [(ngModel)]="model.email_patient" #email_patient="ngModel"  required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
+        <div class="md-errors-spacer" [hidden]="email_patient.valid || email_patient.untouched">
+        <div class="md-char-counter" *ngIf="email_patient.errors && email_patient.errors.required">
+             <font color="red"> Email is required!</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="email_patient.errors && email_patient.errors.pattern">
+          <font color="red"> Email is invalid</font>   
+        </div>
+    </div>
+           
+        </div>
+     </div>
+     </td><td>
+  <div class="form-group row">
+              <label class="col-md-3 form-control-label"  [ngClass]="{ 'has-error': f.submitted && !profession_patient.valid }"for="hf-email"><strong>Profession*</strong></label>
+              <div class="col-md-9">
+            <input  id="model-profession_patient" type="profession_patient" class="form-control" name="profession_patient"  ngControl="profession_patient" [(ngModel)]="model.profession_patient" #profession_patient="ngModel"  pattern="[a-zA-Z ]*" required />
+             <div class="md-errors-spacer" [hidden]="profession_patient.valid || profession_patient.untouched">
+        <div class="md-char-counter" *ngIf="profession_patient.errors && profession_patient.errors.required">
+           <font color="red">  profession_patient is required !</font> 
+        </div>
+        <div class="md-char-counter" *ngIf="profession_patient.errors && profession_patient.errors.pattern">
+         <font color="red">   il faut saisir seulement des caracteres !</font>  
+        </div>
+    </div>
+           
+        </div>
+     </div>
+
+
+
+    </td><td>
+     
+       
+
+  <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="hf-email"><strong>Situation Famillial*</strong></label>
+              <div class="col-md-5">
+
+    <select  name="situationFam" class="custom-select" ngControl="situation_fam"  class="form-control" [(ngModel)]="model.situation_fam"  #situation_fam="ngModel" required  >
+        <option *ngFor="let x of situationFam" [value]="x.value">   
+        {{x.value}}
+        </option>
+    </select>
+
+<div class="md-errors-spacer" [hidden]="situation_fam.valid || situation_fam.untouched">
+                
+        <div class="md-char-counter" *ngIf="situation_fam.errors && situation_fam.errors.required">
+            <font color="red">    situationFam is required !</font> 
+        </div>
+       
+    </div>
+</div>
+</div>
+</td> </tr><tr><td>
+<div class="form-group row">
+              <label class="col-md-3 form-control-label"  [ngClass]="{ 'has-error': f.submitted && !cin.valid }"for="hf-email"><strong>CIN*</strong></label>
+              <div class="col-md-9">
+            <input id="model-cin" type="cin" class="form-control" name="cin" ngControl="cin" [(ngModel)]="model.cin" #cin="ngModel"   pattern="^[0-9]+$" required />
+           <div class="md-errors-spacer" [hidden]="cin.valid || cin.untouched">
+        <div class="md-char-counter" *ngIf="cin.errors && cin.errors.required">
+             <font color="red">    CIN is required</font> 
+        </div>
+        <div class="md-char-counter" *ngIf="cin.errors && cin.errors.pattern">
+           <font color="red">    il faut saisir seulement des entiers !</font> 
+        </div>
+    </div>
+           
+        </div>
+     </div>
+
+</td>   <td></td>   <td>
+
+
+       <div class="form-group">
+            <button [disabled]="!model.date_naiss || !nom_patient.valid || !prenom_patient.valid || !age.valid || !email_patient.valid || !profession_patient.valid || !cin.valid || !((sex.value=='Masculin')||(sex.value=='Feminin')) " class="btn btn-primary"><strong>valider</strong></button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+   </td></tr></table>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+

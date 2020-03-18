@@ -1,0 +1,127 @@
+<nav> 
+  <a [routerLink]="['/homeAdmin']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"> home </a>
+<a [routerLink]="['/gestionuser']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">gestion des users  </a>
+<a [routerLink]="['/ajoutuser']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"> Movies </a>
+</nav>
+
+<div class="col-md-6 col-md-offset-3">
+    <h1>Home</h1>
+    
+    <nav>
+   <a [routerLink]="['/ajoutuser']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">Movies</a>
+  <a [routerLink]="['/homeAdmin']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">Second</a>
+</nav>
+    
+
+<div class="col-md-6 col-md-offset-3">
+    
+    <h2>ajout un utilisateur</h2>
+  
+    <form name="form" (ngSubmit)="f.form.valid && ajout()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nom.valid }">
+            <label for="nom">nom</label>
+            <input type="text" class="form-control" name="nom" [(ngModel)]="model.nom" #nom="ngModel" required />
+            <div *ngIf="f.submitted && !nom.valid" class="help-block">nom is required</div>
+        </div>
+<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !prenom.valid }">
+            <label for="prenom">prenom</label>
+            <input type="text" class="form-control" name="prenom" [(ngModel)]="model.prenom" #prenom="ngModel" required />
+            <div *ngIf="f.submitted && !prenom.valid" class="help-block">prenom is required</div>
+        </div>
+
+<div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+            <label for="date_naiss">Date de naissance</label>
+            <input type="date" name="date_naiss" [(ngModel)]="model.date_naiss"/>
+
+<div *ngIf="f.submitted " class="help-block">date_naiss is required</div>
+        </div>
+
+
+
+<div  class="form-group"   >
+    <label>sex</label>
+
+    <select name="sex" [(ngModel)]="model.sex">
+        <option *ngFor="let sex of sexs" [value]="sex.value">   
+        {{sex.value}}
+        </option>
+    </select>
+</div>
+
+
+
+<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !age.valid }">
+            <label for="age">age</label>
+            <input type="text" class="form-control" name="age" [(ngModel)]="model.age" #age="ngModel" required />
+            <div *ngIf="f.submitted && !age.valid" class="help-block">age is required</div>
+        </div>
+
+
+
+         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+            <label for="email">email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
+            <div *ngIf="f.submitted && !email.valid" class="help-block">email is required</div>
+        </div>
+     
+     
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !etat_fam.valid }">
+            <label for="etat_fam">etat_fam</label>
+            <input type="etat_fam" class="form-control" name="etat_fam" [(ngModel)]="model.etat_fam" #etat_fam="ngModel" required />
+            <div *ngIf="f.submitted && !etat_fam.valid" class="help-block">etat_famis required</div>
+        </div>
+
+
+
+
+
+<div  class="form-group"   >
+    <label>profession de l'utilisateur</label>
+
+    <select name="profession" [(ngModel)]="model.profession">
+        <option *ngFor="let profession of professions" [value]="profession.nom">   
+        {{profession.nom}}
+        </option>
+    </select>
+</div>
+
+
+
+
+
+<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cin.valid }">
+            <label for="cin">cin</label>
+            <input type="cin" class="form-control" name="cin" [(ngModel)]="model.cin" #cin="ngModel" required />
+            <div *ngIf="f.submitted && !cin.valid" class="help-block">cin is required</div>
+        </div>
+
+
+<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !login.valid }">
+            <label for="login">login</label>
+            <input type="login" class="form-control" name="login" [(ngModel)]="model.login" #login="ngModel" required />
+            <div *ngIf="f.submitted && !login.valid" class="help-block">login is required</div>
+        </div>
+
+<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !pass.valid }">
+            <label for="pass">pass</label>
+            <input type="pass" class="form-control" name="pass" [(ngModel)]="model.pass" #pass="ngModel" required />
+            <div *ngIf="f.submitted && !pass.valid" class="help-block">pass is required</div>
+        </div>
+
+<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !tel.valid }">
+            <label for="tel">tel</label>
+            <input type="tel" class="form-control" name="tel" [(ngModel)]="model.tel" #tel="ngModel" required />
+            <div *ngIf="f.submitted && !tel.valid" class="help-block">tel is required</div>
+        </div>
+<div class="form-group" >
+<input id="in" type="text" size="30"   class="form-control" name="typeMedecin" pInputText [disabled]="disabled" [(ngModel)]="model.type_medecin" />
+
+<button type="button" (click)="toggleDisabled()" pButton label="Toggle"> type medecin </button>
+</div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Login</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+</div>

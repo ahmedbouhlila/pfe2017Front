@@ -1,0 +1,107 @@
+
+ 
+<p-fieldset legend="Rendez_vous"    [toggleable]="true">
+<table ><tr><td  style="width:10%" >
+      <Strong> Medecin  </Strong>
+      </td>
+      <td style="width:40%">   <select name="user" class="custom-select" [(ngModel)]="modelmedecin.id_medecin">
+        <option *ngFor="let user of medecins" [value]="user.id_user">   
+       Dr {{user.nom}} {{user.prenom}} {{user.type_medecin}} 
+        </option>
+     </select>  </td>    
+       <td style="width:10%">  <Strong>  Horaire </Strong>  </td>
+       <td style="width:20%">   <input type="date" name="date_naiss"  [(ngModel)]="model"/>   </td>
+      
+ <td style="width:30%">    <button pButton type="button" (click)="GetCreneaux()" label="Voir creneaux"></button>   </td>   </tr></table>
+
+</p-fieldset>
+
+   
+    
+
+
+
+
+
+
+<hr/>
+<div *ngIf="visible1" >
+
+    <div class="animated fadeIn">
+  <div class="row">
+<div class="col-lg-6">
+      <div class="card">
+<div class="card-header" style="background: #63c2de ;">
+          <i ></i> <Strong> <span style="color : white;" >Creneaux disponible au {{dateselectioner}} </span></Strong>
+        </div>
+ <div class="card-block">
+           <table class="table table-bordered">
+<tr     *ngFor="let item of creneaux">
+                <td><strong> Heure de debut {{item.hdebut}}:{{item.mdebut}}  => Heure de fin {{item.hfin}}:{{item.mfin}} </strong> </td>
+                <td><div class="ui-g-12"><p-radioButton name="groupname" value="{{item.id_creneaux}}" [(ngModel)]="id_creneaux"></p-radioButton></div> </td>
+            </tr>
+</table>
+</div>
+</div>
+</div>
+<br/>
+
+
+<br/>
+
+<div class="card-block">
+           <br/>
+           <br/>
+           
+<button type="button" class="btn btn-outline-info btn-lg btn-block"(click)="prendreRendezvous()">Prendre rendez vous </button>
+</div>
+</div>
+</div>
+</div>
+
+<hr/>
+
+
+
+
+
+
+<div class="animated fadeIn">
+  <div class="row">
+<div class="col-lg-6">
+      <div class="card">
+<div class="card-header" style="background: #63c2de ;">
+          <i ></i><Strong> <span style="color : white;" >Liste des rendez vous du Patient</span></Strong>
+        </div>
+ <div class="card-block">
+           <table class="table table-bordered">
+<tr    *ngFor="let x of rendez_vous">
+                <td><strong> Rendez vous avec Dr {{x.nom}} {{x.prenom}} {{x.type_medecin}} le {{x.jour}} de {{x.hdebut}}:{{x.mdebut}} =>{{x.hfin}}:{{x.mfin}} </strong> </td>
+                <td><div class="ui-g-12"><p-radioButton name="groupname1" value="{{x.id_rendez_vous}}" [(ngModel)]="id_rendez_vous"></p-radioButton></div> </td>
+            </tr>
+</table>
+</div>
+</div>
+</div>
+<br/>
+
+<br/>
+
+<div class="card-block">
+           <br/>
+           <br/>
+         
+<button type="button" class="btn btn-outline-danger btn-lg btn-block"(click)="effacerRendezVous()">annuler rendez vous </button> 
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+ 
+
+

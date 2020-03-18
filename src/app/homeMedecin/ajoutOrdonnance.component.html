@@ -1,0 +1,27 @@
+
+
+
+
+
+<div class="card-header" style="background: #63c2de ;">
+        <i style="color: white;" class="fa fa-align-justify"></i> <Strong> <span style="color : white;" > Liste des ordonnances prescrites </span></Strong>
+        </div>
+     <table class="table table-bordered">
+         <tr><th>Nom</th>
+         <th>Date d'edition </th>
+         <th>  </th>
+             </tr>
+<tr    *ngFor="let x of ordonnances">
+                <td>    {{x.nom}} </td>
+                <td>   {{x.date_ord}}  </td>
+                <td><button class='btn btn-info' type='button' name="voir"   (click)="voirordonnance(x)" > <span class='glyphicon glyphicon-pencil'></span> Modifier</button>&nbsp; &nbsp;<button class='btn btn-danger' type='button' name="effacer" (click)="effacerordonnace(x)" > <span class='glyphicon glyphicon-remove' ></span> Effacer</button> </td>
+            </tr>
+</table>
+<br/>
+
+<button type="button" class="btn btn-outline-info btn-lg btn-block"(click)="ecrireordonnance()">nouvelle ordonnance </button>
+<br/>
+<br/>
+<br/>
+<br/>
+

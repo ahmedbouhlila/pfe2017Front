@@ -1,0 +1,174 @@
+<div class="animated fadeIn">
+  <div class="row ">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-pencil" aria-hidden="true"></i><strong><span style="color : white;" > Informations personelles</span></strong>
+        </div>
+        <div class="card-block">
+                   
+
+ 
+        
+    <form name="form" (ngSubmit)="modifier()" >
+        <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"> <strong> Nom</strong></label>
+              <div class="col-md-5">
+            <input type="text" class="form-control" name="nom_patient"  value="{{acteur.nom}}" [(ngModel)]="acteur.nom" #nom_patient="ngModel" required />
+         </div>
+        </div>
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>Prenom</strong></label>
+              <div class="col-md-5">
+            <input type="text" class="form-control" name="prenom_patient" value="{{acteur.prenom}}"[(ngModel)]="acteur.prenom" #prenom_patient="ngModel" required />
+           </div>
+        </div>
+
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>Date de naissance</strong></label>
+              <div class="col-md-5">
+           
+            <input type="date" name="date_naiss" value="{{acteur.date_naiss}}" [(ngModel)]="acteur.date_naiss"/>
+
+        </div>
+</div>
+
+
+
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>sexe</strong></label>
+              <div class="col-md-5">
+
+    <select name="sex" class="custom-select" value="{{acteur.sex}}" [(ngModel)]="acteur.sex">
+        
+        <option *ngFor="let sex of sexs" [value]="sex.value">   
+        {{sex.value}}
+        </option>
+    </select>
+</div>
+</div>
+
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>Age</strong></label>
+              <div class="col-md-5">
+            <input type="cin" class="form-control" name="cin" value="{{acteur.age}}"[(ngModel)]="acteur.age" #cin="ngModel" required />
+       
+        </div>
+</div>
+
+         <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>Email</strong></label>
+              <div class="col-md-5">
+            <input type="text" class="form-control" name="email_patient" value="{{acteur.email}}"[(ngModel)]="acteur.email" #email_patient="ngModel" required />
+         </div>   
+        </div>
+     
+     <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>Situation Familliale</strong></label>
+              <div class="col-md-5">
+            <select name="situationFam" class="custom-select" value="{{acteur.etat_fam}}" [(ngModel)]="acteur.etat_fam">
+        <option *ngFor="let x of situationFams" [value]="x.value">   
+        {{x.value}}
+        </option>
+    </select>
+        </div>
+</div>
+
+
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>CIN</strong></label>
+              <div class="col-md-5">
+            <input type="cin" class="form-control" name="cin" value="{{acteur.cin}}"[(ngModel)]="acteur.cin" #cin="ngModel" required />
+            
+        </div>
+</div>
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"> <strong>Numero de telephone</strong></label>
+              <div class="col-md-5">
+            <input type="cin" class="form-control" name="cin12" value="{{acteur.tel}}"[(ngModel)]="acteur.tel" #cin12="ngModel" required />
+            
+        </div>
+</div>
+
+
+
+
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Confirmer</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+    </div>
+    </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-pencil" aria-hidden="true"></i><strong><span style="color : white;" >Parametre de connexion</span></strong>
+        </div>
+        <div class="card-block">
+                   
+
+  
+ 
+  
+         
+        
+    <form name="form" (ngSubmit)="modifier1()" >
+        <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>login</strong></label>
+              <div class="col-md-6">
+            <input type="text" class="form-control" name="nom_patient"  value="{{acteur1.login}}" [(ngModel)]="acteur.login" #nom_patient="ngModel" required />
+         </div>
+        </div>
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>Ancien mot de passe</strong></label>
+              <div class="col-md-6">
+            <input type="password" class="form-control" name="prenom_patient" [(ngModel)]="ancienpass" #prenom_patient3="ngModel" required />
+           </div>
+        </div>
+
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>Nouveau mot de passe </strong></label>
+              <div class="col-md-6">
+           <input pPassword type="password"   name="pass" [(ngModel)]="nouveaupass" />
+            
+
+        </div>
+</div>
+<div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="email"><strong>Confirmer nouveau mot de passe</strong> </label>
+              <div class="col-md-6">
+           
+            <input pPassword type="password"   name="pass" [(ngModel)]="nouveaupass1" />
+
+        </div>
+</div>
+
+
+
+
+
+
+    
+
+
+
+
+
+
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Confirmer</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<br/>

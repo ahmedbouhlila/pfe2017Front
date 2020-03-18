@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-6">
+    <div style="display: block;">
+    <canvas baseChart width="50%" height="40%"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+  <div class="col-md-6" style="margin-bottom: 10px">
+    <table class="table table-responsive table-condensed">
+      <tr>
+        <th *ngFor="let label of lineChartLabels">{{label}}</th>
+      </tr>
+      <tr *ngFor="let d of lineChartData">
+        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+      </tr>
+    </table>
+    
+  </div>
+</div>
+
+
+
+<br><br><br><br><br><br>
+
+<div style="text-align:center">
+ 
+
+
+<div> 
+       <form (submit)="getCaisse()">  <input type="date" name="date1" [(ngModel)]="date1"/> <input type="date" name="date2" [(ngModel)]="date2"/><button pButton type="submit" icon="fa-check" iconPos="right" label="afficher"></button> </form>
+ 
+  </div>
+
+
+        </div>
+        <br><br>
+               <table class="table table-bordered">
+
+                 <th> Nom et prenom secretaire </th>
+                 <th>Montant  </th>
+<tr     *ngFor="let x of  listsecretaires; let i=index" >
+                
+                <td>  {{x}}  </td>
+                  <td> {{listmontants[i]}} </td>
+            </tr>
+</table>

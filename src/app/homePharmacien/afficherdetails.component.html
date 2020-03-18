@@ -1,0 +1,81 @@
+<br/>
+
+<div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-list-ul" aria-hidden="true"></i><strong><span style="color : white;" >L'ordonnance du patient</span></strong>
+        </div>
+
+
+
+
+
+     <table class="table table-bordered">
+         <tr><th>Nom medicament</th>
+         <th> Forme </th>
+         <th>  Nombre de fois (jour)</th>
+          <th>  Quantité</th>
+          <th>  Etat </th>
+           <th>  Selection    </th>
+             </tr>
+<tr    *ngFor="let x of details; let i=index">
+                <td>    {{x.nom}} </td>
+                <td>   {{x.formMed}}  </td>
+                <td>   {{x.nbrFoisMed}}  </td>
+                <td>   {{x.quantMed}}  </td>
+                <td>   {{x.etat}} ({{x.quantmax}}/{{x.quantMed}})  </td>
+                <td>  <p-checkbox [(ngModel)]="details[i].check" binary="true"></p-checkbox>  <p-spinner size="10" [(ngModel)]="details[i].quantprise" [min]="0" [max]="details[i].quantmax"></p-spinner>     </td>
+            </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-block">
+           <br/>
+           <br/>
+          <button type="button" class="btn btn-outline-info btn-lg btn-block"(click)="afficherfacture()">Charger facture</button>
+          <br/>
+           <br/>
+         
+          <br/>
+           <br/>
+         
+        </div>
+        <p-dialog header="Information de l'ordonnance " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+   
+    <table class="table table-bordered">
+         <tr><th>Nom medicament</th>
+         <th> Forme </th>
+         <th>  Nombre de fois (jour)</th>
+          <th>  Quantité  </th>
+          <th>   Prix unitaire   </th>
+           <th>  Prix totale   </th>
+             </tr>
+<tr    *ngFor="let x of detailsfacture; let i=index">
+                <td>    {{x.nom}} </td>
+                <td>   {{x.formMed}}  </td>
+                <td>   {{x.nbrFoisMed}}  </td>
+                <td>   {{x.quantprise}}  </td>
+                <td>   {{x.prixUnitaire}}   </td>
+                <td>   {{x.prixTotale}}    </td>
+            </tr>
+<tr>       <th>  Montant globale </th> <th>{{montant}} </th>   </tr>
+
+</table>
+<br/>
+
+<button type="button" pButton icon="fa-check" (click)="imprimer()" label="Imprimer l'ordonnance des medicaments restants"></button>
+
+
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">    
+            <button type="button" pButton icon="fa-check" (click)="valider()" label="valider"></button>
+        </div>
+    </p-footer>
+</p-dialog>

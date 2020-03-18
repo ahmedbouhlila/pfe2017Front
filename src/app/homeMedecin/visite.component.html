@@ -1,0 +1,256 @@
+
+
+
+
+ <div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-list-ul" aria-hidden="true"></i><strong><span style="color : white;" >Fiche du patient</span></strong>
+        </div>
+<table class="table table-bordered">
+ <tr>   
+ <td>
+ <strong>Nom:</strong>&nbsp; &nbsp;  {{patient.nom_patient}}   
+ </td>
+<td>
+ <strong>Prenom:</strong>&nbsp; &nbsp; {{patient.prenom_patient}} 
+ </td>
+<td>
+ 
+  <strong>Date de naissance:</strong>&nbsp; &nbsp;   {{patient.date_naiss}} 
+ </td>
+ </tr>
+ <tr>   
+ <td>
+ <strong>Sexe:</strong>&nbsp; &nbsp;  {{patient.sex}}   
+ </td>
+<td>
+ <strong>Situation familial:</strong>&nbsp; &nbsp; {{patient.situation_fam}} 
+ </td>
+<td>
+ 
+  <strong>Groupe sanguin:</strong>&nbsp; &nbsp;   {{patient.grp_SANGIN}} 
+ </td>
+ </tr>
+
+	 
+</table>
+<button class="btn btn-sm btn-outline-primary" (click)="afficherdossier()">Historique du patient </button> 
+<button class="btn btn-sm btn-outline-primary" (click)="ecrire1()">Ecrire un certificat </button>
+
+<br/>
+<br/>
+
+<div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="card-group mb-0">
+          <div class="card p-2">
+            <div class="card-block">
+
+
+
+ <div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-pencil" aria-hidden="true"></i><strong><span style="color : white;" >   Ecrire une ordonnance</span></strong>
+        </div>
+   <table class="table table-bordered">
+
+<tr><th>selectionner une ordonnance prédéfini </th>
+         
+        
+         
+             </tr>
+<tr>
+
+
+<td>
+     <select name="ordonnance" [(ngModel)]="index">
+        <option *ngFor="let ord of listordonnances; let i=index" [value]="i">   
+        {{ord.nom}}
+        </option>
+    </select>
+    &nbsp;
+<button class='btn btn-info' type='button' name="Afficher"   (click)="SelectOrdonnance()" > <span class='glyphicon glyphicon-pencil'></span> Afficher</button>  &nbsp; <button class='btn btn-danger' type='button' name="Annuler" (click)="annulerord()" > <span class='glyphicon glyphicon-remove' ></span> Annuler</button>   
+    </td>
+    </tr>
+
+
+     </table>
+
+<br/>
+    <form name="form" (ngSubmit)="ajout()" #f="ngForm" novalidate>
+         <br/>
+         <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="hf-email"><strong> Choisir un medicament</strong> </label>
+              <div class="col-md-9">
+            <select name="medicament" [(ngModel)]="model.medicament">
+        <option *ngFor="let medicament of medicaments" [value]="medicament.nom">   
+        {{medicament.nom}}
+        </option>
+    </select>
+        </div>
+
+
+</div>
+
+        <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="hf-email"><strong> Nombre de fois par jour</strong></label>
+              <div class="col-md-3">
+
+               <input type="text" class="form-control" name="nbrFoisMed " [(ngModel)]="model.nbrFoisMed " #nbrFoisMed t="ngModel" required />
+            
+        </div>
+        </div>
+ <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="prenom"><strong>Forme</strong></label>
+              <div class="col-md-3">
+
+             
+        
+        <select  name="formMed" class="custom-select"  class="form-control" [(ngModel)]="model.formMed"  #formMed="ngModel" required  >
+        <option *ngFor="let x of formes" [value]="x.value">   
+        {{x.value}}
+        </option>
+    </select>
+        </div>
+
+
+
+</div>
+ <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="prenom"><strong> Quantité</strong></label>
+              <div class="col-md-3">
+
+            <input type="text" class="form-control" name="quantMed" [(ngModel)]="model.quantMed" #quantMed="ngModel" required />
+        </div>
+</div>  
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Ajouter medicament a la prescription</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+
+ 
+
+
+
+
+
+
+
+<div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-list-ul" aria-hidden="true"></i><strong><span style="color : white;" >Les prescriptions</span></strong>
+        </div>
+
+
+
+     <table class="table table-bordered">
+         <tr><th>Nom medicament</th>
+         <th> Forme </th>
+         <th>  Nombre de fois (jour)</th>
+          <th>  Quantité</th>
+           <th> </th>
+             </tr>
+<tr    *ngFor="let x of prescription1; let i=index">
+                <td>    {{x.nom}} </td>
+                <td>   {{x.formMed}}  </td>
+                <td>   {{x.nbrFoisMed}}  </td>
+                <td>   {{x.quantMed}}  </td>
+                <td><button class='btn btn-info' type='button' name="voir"   (click)="modifier(i)" > <span class='glyphicon glyphicon-pencil'></span> Modifier</button>&nbsp;<button class='btn btn-danger' type='button' name="effacer" (click)="effacer(i)" > <span class='glyphicon glyphicon-remove' ></span> Effacer</button> </td>
+            </tr>
+</table>
+
+ 
+<button class='btn btn-danger' type='button' name="Annuler la prescription" (click)="annulertout()" > <span class='glyphicon glyphicon-remove' ></span> Annuler la prescription</button>  
+
+<hr/>
+<textarea    class="form-control" name="rapport"    rows="5" cols="30" placeholder="ecrire le rapport..." pInputTextarea [(ngModel)]="rapport"></textarea>
+<br/>
+<button class='btn btn-info' type='button' name="voir"   (click)="finvisite()" > <span class='glyphicon glyphicon-pencil'></span> Fin de la visite</button>
+
+
+ </div>
+  </div>
+   </div>
+    </div>
+     </div>
+     
+        
+<p-dialog header="Modifier la prescription" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+
+   <form name="form" (ngSubmit)="confirmermodifier()" #f="ngForm" novalidate>
+     
+
+        
+        
+        
+        <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="hf-email"> <strong> Nombre de fois (jour) </strong></label>
+              <div class="col-md-3">
+
+               <input type="text" class="form-control" name="nbrFoisMed " value="{{prescription.nbrFoisMed}}" [(ngModel)]="prescription.nbrFoisMed" #nbrFoisMed t="ngModel" required />
+            
+        </div>
+        </div>
+ <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="prenom"><strong> Forme </strong></label>
+              <div class="col-md-5">
+
+             
+        <select  name="formMed" class="custom-select"  class="form-control" value="{{prescription.formMed}}" [(ngModel)]="prescription.formMed"  #formMed="ngModel" required  >
+        <option *ngFor="let x of formes" [value]="x.value">   
+        {{x.value}}
+        </option>
+    </select>
+       
+       
+       
+        </div>
+</div>
+ <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="prenom"><strong>Quantité</strong></label>
+              <div class="col-md-3">
+
+            <input type="text" class="form-control" name="quantMed" value="{{prescription.quantMed}}" [(ngModel)]="prescription.quantMed" #quantMed="ngModel" required />
+        </div>
+</div>  
+
+
+
+
+
+
+
+
+  
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Confirmer </button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+
+ 
+    
+    
+</p-dialog>  
+
+        
+<p-dialog  width="60%" [(visible)]="ecrire" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
+    [style]="{'overflow':'visible'}" [resizable]="false">
+     <p-header><i style="color: white;" class="fa fa-pencil-square-o" aria-hidden="true"></i><strong><span style="color : white;" >Certificat</span></strong></p-header>
+ <div class="container" style="height: 100%;text-align: center ">
+  <div class="editor-container mat-elevation-z16">
+    <quill-editor [(ngModel)]="text"></quill-editor>
+  </div>
+</div>
+
+ 
+  <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+           
+            <button type="button" pButton icon="fa-check" (click)="imprimer()" label="Imprimer"></button>
+        </div>
+    </p-footer>
+ 
+    
+    
+</p-dialog>  

@@ -1,0 +1,104 @@
+
+
+<div class="animated fadeIn">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header" style="background: #63c2de  ;">
+          <i style="color: white;" class="fa fa-paypal" aria-hidden="true"></i><strong><span style="color : white;" >Facture globale du patient</span></strong>
+        </div>
+        <div class="card-block">
+                  
+
+  <br/>
+    <form name="form" (ngSubmit)="payer()" >
+          
+        <div class="form-group row">
+            <label class="col-md-3 form-control-label"  for="etablissement">etablissement</label>
+             <div class="col-md-9">
+            <input type="text" class="form-control" name="etablissement" [(ngModel)]="etablissement" />
+            </div>
+        </div>
+<div class="form-group row">
+            <label class="col-md-3 form-control-label" for="adresseEtab">adresseEtab</label>
+             <div class="col-md-9">
+            <input type="text" class="form-control" name="adresseEtab" [(ngModel)]="adresseEtab"  />
+            </div>
+        </div>
+<div class="form-group row">
+            <label class="col-md-3 form-control-label" for="numTel">numTel</label>
+             <div class="col-md-9">
+            <input type="text" class="form-control" name="numTel" [(ngModel)]="numTel"  />
+            </div>
+        </div>
+       <div class="form-group row">
+            <label class="col-md-3 form-control-label" for="numFax">numFax</label>
+             <div class="col-md-9">
+            <input type="text" class="form-control" name="numFax" [(ngModel)]="numFax"  />
+       </div>     
+        </div>
+      
+       
+
+ <div *ngIf="facturemedecin" class="help-block">
+
+<div class="form-group row">
+    <label class="col-md-3 form-control-label" >facture medecin nbr {{nbrfacturemedecin}} </label>
+     <div class="col-md-9">
+
+    <select name="groupe" >
+        <option *ngFor="let f of facturesmedecin" >   
+     numero de facture   {{f.num_fac}}, montant   {{f.montant}}
+        </option>
+    </select>
+</div>
+
+ </div>
+</div>
+<div *ngIf="facturepharmacien" class="help-block">
+
+<div class="form-group row">
+    <label class="col-md-3 form-control-label" >facture pharmacie nbr {{nbrfacturepharmacien}} </label>
+     <div class="col-md-9">
+
+    <select name="groupe1" >
+        <option *ngFor="let f of facturespharmacien" >   
+     numero de facture   {{f.num_fac}}, montant   {{f.montant}}
+        </option>
+    </select>
+</div>
+</div>
+</div>
+<div class="form-group row">
+    <label class="col-md-3 form-control-label" for="montantglobale" >montant globale</label>
+     <div class="col-md-9">
+<input id="in" type="text" size="30"     value="{{montantGlobale}}"   pInputText [disabled]="disabled" />
+</div>
+</div>
+<div class="form-group row">
+    <label class="col-md-3 form-control-label" >type de payement  </label>
+     <div class="col-md-9">
+
+    <select name="type" [(ngModel)]="typepayement">
+        <option *ngFor="let t of type" [value]="t.value">   
+        {{t.value}}
+        </option>
+    </select>
+</div>
+</div>
+
+
+
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">payement</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+

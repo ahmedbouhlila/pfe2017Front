@@ -1,0 +1,155 @@
+
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Rechercher">
+</div>
+<p-dataTable #dt [emptyMessage]="emptymessage" [value]="patients" selectionMode="single" [(selection)]="selectedPatient" [globalFilter]="gb" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="10" [responsive]="true">
+    <p-header>Listes des Patients</p-header>   
+    <p-column field="nom_patient" header="nom_patient" [sortable]="true"></p-column>
+    <p-column field="prenom_patient" header="prenom_patient" [sortable]="true"></p-column>
+    <p-column field="sex" header="sexe" [sortable]="true"></p-column>
+    
+    <p-column field="date_naiss" header="date_naiss" [sortable]="true"></p-column>
+    <p-column field="profession_patient" header="profession_patient" [sortable]="true"></p-column>
+    <p-column field="email_patient" header="email_patient" [sortable]="true"></p-column>
+    <p-column field="situation_fam" header="situation_fam" [sortable]="true"></p-column>
+    <p-column field="cin" header="cin" [sortable]="true"></p-column>
+    <p-column field="grp_SANGIN" header="grp_SANGIN" [sortable]="true"></p-column>    
+    <p-footer><div class="ui-helper-clearfix" style="width:100%">
+        <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Ajouter">  </button>
+        <button   type="button" pButton icon="fa-file-o" iconPos="right" label="CSV" (click)="dt.exportCSV()" style="float:right ; background: green "></button>
+         <button   aria-hidden="true" type="button" pButton icon="fa-file-o" iconPos="right" label="PDF" (click)="exportPDF()" style="float:right ; background: red"></button>
+        </div></p-footer>
+</p-dataTable>
+
+<p-dialog header="acteur Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="patient">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="nom_patient">nom</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="nom_patient"  ngControl="nom_patient" [(ngModel)]="patient.nom_patient"  #nom_patient="ngModel"  pattern="[a-zA-Z ]*" required /></div>
+        <div class="md-errors-spacer" [hidden]="nom_patient.valid || nom_patient.untouched">
+                
+        <div class="md-char-counter" *ngIf="nom_patient.errors && nom_patient.errors.required">
+            <font color="red">NOM_patient is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="nom_patient.errors && nom_patient.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="prenom_patient">prenom</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="prenom_patient" ngControl="prenom_patient" [(ngModel)]="patient.prenom_patient" #prenom_patient="ngModel"  pattern="[a-zA-Z ]*" required  /></div>
+       <div class="md-errors-spacer" [hidden]="prenom_patient.valid || prenom_patient.untouched">
+                
+        <div class="md-char-counter" *ngIf="prenom_patient.errors && prenom_patient.errors.required">
+            <font color="red">prenom_patient is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="prenom_patient.errors && prenom_patient.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="cin">cin</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="cin" ngControl="cin" [(ngModel)]="patient.cin" #cin="ngModel"  pattern="^[0-9]+$" required/></div>
+         <div class="md-errors-spacer" [hidden]="cin.valid || cin.untouched">
+                
+        <div class="md-char-counter" *ngIf="cin.errors && cin.errors.required">
+            <font color="red"> cin is required !</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="cin.errors && cin.errors.pattern">
+            <font color="red"> il faut entrer seulement des entiers !</font>     
+        </div>
+    </div>
+        </div>
+       
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="date_naiss">date_naiss</label></div>
+            <div class="ui-grid-col-8"><input type="date" name="date_naiss" value="{{patient.date_naiss}}" ngControl="date_naiss" [(ngModel)]="patient.date_naiss"  #date_naiss="ngModel"   required /></div>
+         <div class="md-errors-spacer" [hidden]="date_naiss.valid || date_naiss.untouched">
+                
+        <div class="md-char-counter" *ngIf="date_naiss.errors && date_naiss.errors.required">
+          <font color="red">date_naiss is required! </font>  
+        </div>
+       
+    </div>
+        </div>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="sex">sexe</label></div>
+            <div class="ui-grid-col-8"><select name="sex" ngControl="sex" [(ngModel)]="patient.sex" #sex="ngModel" required>
+        <option *ngFor="let sex of sexs" [value]="sex.value">   
+        {{sex.value}}
+        </option>
+    </select> <div class="md-errors-spacer" [hidden]="sex.valid || sex.untouched">
+                
+        <div class="md-char-counter" *ngIf="sex.errors && sex.errors.required">
+            <font color="red"> sex is required</font>  
+        </div>
+       
+    </div>
+    </div>
+        </div>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="email_patient">email</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="email_patient" ngControl="email_patient" [(ngModel)]="patient.email_patient" #email_patient="ngModel"  required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/></div>
+         <div class="md-errors-spacer" [hidden]="email_patient.valid || email_patient.untouched">
+        <div class="md-char-counter" *ngIf="email_patient.errors && email_patient.errors.required">
+             <font color="red"> Email is required!</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="email_patient.errors && email_patient.errors.pattern">
+          <font color="red"> Email is invalid</font>   
+        </div>
+    </div>
+           
+        </div>
+     
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="situation_fam">situation fam</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="situation_fam" ngControl="situation_fam" [(ngModel)]="patient.situation_fam" #situation_fam="ngModel"  pattern="[a-zA-Z ]*" required /></div>
+        <div class="md-errors-spacer" [hidden]="situation_fam.valid || situation_fam.untouched">
+                
+        <div class="md-char-counter" *ngIf="situation_fam.errors && situation_fam.errors.required">
+            <font color="red">situation_fam is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="situation_fam.errors && situation_fam.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="profession_patient">profession patient</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="profession_patient" ngControl="profession_patient" [(ngModel)]="patient.profession_patient" #profession_patient="ngModel"  pattern="[a-zA-Z ]*" required /></div>
+        <div class="md-errors-spacer" [hidden]="profession_patient.valid || profession_patient.untouched">
+                
+        <div class="md-char-counter" *ngIf="profession_patient.errors && profession_patient.errors.required">
+            <font color="red">profession_patient is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="profession_patient.errors && profession_patient.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="grp_SANGIN">grp_SANGIN</label></div>
+            <div class="ui-grid-col-8"><select name="grp_SANGIN"  ngControl="grp_SANGIN" [(ngModel)]="patient.grp_SANGIN"  #grp_SANGIN="ngModel" required>
+        <option *ngFor="let g of groupes" [value]="g.value">   
+        {{g.value}}
+        </option>
+    </select> <div class="md-errors-spacer" [hidden]="grp_SANGIN.valid || grp_SANGIN.untouched">
+                
+        <div class="md-char-counter" *ngIf="grp_SANGIN.errors && grp_SANGIN.errors.required">
+            <font color="red"> grp_SANGIN is required</font>  
+        </div>
+       
+    </div>
+    </div>
+        </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="delete()" >Effacer</button>
+            <button type="button" pButton icon="fa-check" (click)="save()" >Enregistrer</button>
+        </div>
+    </p-footer>
+     </div>
+</p-dialog>

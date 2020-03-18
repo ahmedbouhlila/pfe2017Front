@@ -1,0 +1,195 @@
+
+<div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="card-group mb-0">
+          <div class="card p-2">
+            <div class="card-block">
+
+
+
+ <div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-pencil" aria-hidden="true"></i><strong><span style="color : white;" > Ecrire une ordonnance</span></strong>
+        </div>
+ 
+    <form name="form" (ngSubmit)="ajout()" #f="ngForm" novalidate>
+         <br/>
+         <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="hf-email"> <strong> Choisir un medicament </strong></label>
+              <div class="col-md-9">
+            <select name="medicament" [(ngModel)]="model.medicament">
+        <option *ngFor="let medicament of medicaments" [value]="medicament.nom">   
+        {{medicament.nom}}
+        </option>
+    </select>
+        </div>
+
+
+</div>
+
+        
+        
+        
+        <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="hf-email"><strong> Nombre de fois (jour) </strong></label>
+              <div class="col-md-3">
+
+               <input type="text" class="form-control" name="nbrFoisMed " [(ngModel)]="model.nbrFoisMed " #nbrFoisMed t="ngModel" required />
+            
+        </div>
+        </div>
+ <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="prenom"> <strong>Forme </strong></label>
+              <div class="col-md-5">
+
+             
+       
+       <select  name="formMed" class="custom-select"  class="form-control" [(ngModel)]="model.formMed"  #formMed="ngModel" required  >
+        <option *ngFor="let x of formes" [value]="x.value">   
+        {{x.value}}
+        </option>
+    </select>
+       
+        </div>
+</div>
+ <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="prenom"> <strong>Quantité </strong></label>
+              <div class="col-md-3">
+
+            <input type="text" class="form-control" name="quantMed" [(ngModel)]="model.quantMed" #quantMed="ngModel" required />
+        </div>
+</div>  
+
+
+
+
+
+
+
+
+  
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Ajouter medicament a la prescription</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+<hr/>
+<div class="card-header" style="background: #63c2de ;">
+        <i style="color: white;" class="fa fa-align-justify"></i> <Strong> <span style="color : white;" > Les prescriptions </span></Strong>
+        </div>
+
+     <table class="table table-bordered">
+         <tr><th>Nom medicament</th>
+         <th> Forme </th>
+         <th>  Nombre de fois (jour)</th>
+          <th>  Quantité</th>
+           <th> </th>
+             </tr>
+<tr    *ngFor="let x of prescription1; let i=index">
+                <td>    {{x.nom}} </td>
+                <td>   {{x.formMed}}  </td>
+                <td>   {{x.nbrFoisMed}}  </td>
+                <td>   {{x.quantMed}}  </td>
+                <td><button class='btn btn-info' type='button' name="voir"   (click)="modifier(i)" > <span class='glyphicon glyphicon-pencil'></span> Modifier</button>&nbsp; &nbsp;<button class='btn btn-danger' type='button' name="effacer" (click)="effacer(i)" > <span class='glyphicon glyphicon-remove' ></span> Effacer</button> </td>
+            </tr>
+</table>
+<br/>
+<hr/>
+  <form name="form" (ngSubmit)="ajoutordonnance()" #f="ngForm" novalidate>
+     
+        
+        <div class="form-group row">
+              <label class="col-md-3 form-control-label"  for="hf-email"> <strong>Nom de l'ordonnance </strong></label>
+              <div class="col-md-3">
+
+               <input type="text" class="form-control" name="nbrFoisMed "  [(ngModel)]="ordonnance" #nbrFoisMed t="ngModel" required />
+            
+        </div>
+        </div>
+
+
+
+  
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Ajouter l'ordonnance </button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+
+
+
+
+
+
+ </div>
+  </div>
+   </div>
+    </div>
+     </div>
+     
+        
+<p-dialog header="Modifier la prescription" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+
+   <form name="form" (ngSubmit)="confirmermodifier()" #f="ngForm" novalidate>
+     
+
+        
+        
+        
+        <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="hf-email"> <strong> Nombre de fois (jour) </strong></label>
+              <div class="col-md-3">
+
+               <input type="text" class="form-control" name="nbrFoisMed " value="{{prescription.nbrFoisMed}}" [(ngModel)]="prescription.nbrFoisMed" #nbrFoisMed t="ngModel" required />
+            
+        </div>
+        </div>
+ <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="prenom"><strong> Forme </strong></label>
+              <div class="col-md-5">
+
+             
+        <select  name="formMed" class="custom-select"  class="form-control" value="{{prescription.formMed}}" [(ngModel)]="prescription.formMed"  #formMed="ngModel" required  >
+        <option *ngFor="let x of formes" [value]="x.value">   
+        {{x.value}}
+        </option>
+    </select>
+       
+       
+       
+        </div>
+</div>
+ <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="prenom"><strong>Quantité</strong></label>
+              <div class="col-md-3">
+
+            <input type="text" class="form-control" name="quantMed" value="{{prescription.quantMed}}" [(ngModel)]="prescription.quantMed" #quantMed="ngModel" required />
+        </div>
+</div>  
+
+
+
+
+
+
+
+
+  
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Confirmer </button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+
+ 
+    
+    
+</p-dialog> 
+
+
+
+
+        
+   

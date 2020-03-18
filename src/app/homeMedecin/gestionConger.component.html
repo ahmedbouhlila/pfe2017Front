@@ -1,0 +1,105 @@
+
+<div class="animated fadeIn">
+  <div class="row ">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header" style="background: #1E90FF ;">
+          <i style="color: white;" class="fa fa-list-ul" aria-hidden="true"></i><strong><span style="color : white;" >Liste des congés</span></strong>
+        </div>
+        <div class="card-block">
+                   
+
+       <table class="table table-bordered">
+        <tr><th>Date de debut  => Date de fin  </th></tr>   
+<tr     *ngFor="let item of  listconger"  >
+                
+                <td> {{item.dateDebut}} => {{item.dateFin}}  </td>
+                
+            </tr>
+</table> 
+</div>
+    </div>
+    </div>
+
+
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header" style="background: #1E90FF ;">
+          <i style="color: white;" class="fa fa-pencil-square-o" aria-hidden="true"></i><strong><span style="color : white;" >Ajouter un congé</span></strong>
+        </div>
+        <div class="card-block">
+                   
+
+
+    <form name="form" (submit)="ajoutconger()" #f="ngForm" novalidate>
+        <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="hf-email"><strong>Date de debut</strong></label>
+              <div class="col-md-6">
+
+            <input type="date" name="dateDebut" ngControl="dateDebut" [(ngModel)]="model1.dateDebut" #dateDebut="ngModel"   required/>
+            <div class="md-errors-spacer" [hidden]="dateDebut.valid || dateDebut.untouched">
+                
+        <div class="md-char-counter" *ngIf="dateDebut.errors && dateDebut.errors.required">
+          <font color="red">Date de Debut is required! </font>  
+        </div>
+       
+    </div>
+        </div>
+        </div>
+ <div class="form-group row">
+              <label class="col-md-6 form-control-label"  for="prenom"> <strong>Date de fin </strong></label>
+              <div class="col-md-6">
+
+            <input type="date" name="dateFin" ngControl="dateFin" [(ngModel)]="model1.dateFin" #dateFin="ngModel"   required/>
+             <div class="md-errors-spacer" [hidden]="dateFin.valid || dateFin.untouched">
+                
+        <div class="md-char-counter" *ngIf="dateFin.errors && dateFin.errors.required">
+          <font color="red">Date de Fin is required! </font>  
+        </div>
+       
+    </div>
+        </div>
+</div>
+
+
+
+  
+        <div class="form-group">
+            <button [disabled]="!model1.dateDebut || !model1.dateFin" class="btn btn-primary">Prendre conger</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<p-dialog  [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+<p-header> <i class="fa fa-list" aria-hidden="true"></i>Les Rendez vous dans la periode de conger</p-header>
+
+
+ <option *ngFor="let user of rendezVousConger"  >   
+   {{user.hdebut}}:{{user.mdebut}} =>{{user.hfin}}:{{user.mfin}}  avec {{user.nom_patient}} {{user.prenom_patient}}
+        </option>
+    
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            
+            <button type="button" pButton icon="fa-check" (click)="confirmerconger()" label="Confirmer le conger"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+   

@@ -1,0 +1,298 @@
+
+ 
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Rechercher">
+</div>
+
+<p-dataTable  #dt [emptyMessage]="emptymessage"  [value]="acteurs" selectionMode="single" [(selection)]="selectedActeur" [globalFilter]="gb" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+    <p-header>Listes des Utilisateurs</p-header>   
+    <p-column field="nom" header="Nom" [sortable]="true"></p-column>
+    <p-column field="prenom" header="Prenom" [sortable]="true"></p-column>
+    <p-column field="cin" header="Cin" [sortable]="true"></p-column>
+    
+    <p-column field="date_naiss" header="Date naissance" [sortable]="true"></p-column>
+    <p-column field="sex" header="Sexe" [sortable]="true"></p-column>
+    <p-column field="tel" header="Tel" [sortable]="true"></p-column>
+    <p-column field="profession" header="Profession" [sortable]="true"></p-column>
+    
+    <p-column field="etat_fam" header="Situation fam " [sortable]="true"></p-column>
+    
+    <p-column field="type_medecin" header="Type medecin" [sortable]="true"></p-column>
+    <p-column header="Etat" [sortable]="true">    
+    <ng-template let-file="rowData" pTemplate type="body">
+        {{file.activer == 1 ? "Activer" : "Desactiver"}}
+    </ng-template>            </p-column>
+    <p-footer><div class="ui-helper-clearfix" style="width:100%">
+        <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()"   label="Ajouter">  </button>
+   
+     <button   type="button" pButton icon="fa-file-o" iconPos="right" label="CSV" (click)="dt.exportCSV()" style="float:right ; background: green "></button>
+     
+      <button   aria-hidden="true" type="button" pButton icon="fa-file-o" iconPos="right" label="PDF" (click)="exportPDF()" style="float:right ; background: red"></button>
+       </div>
+    </p-footer>
+</p-dataTable>
+
+<p-dialog header="Utilisateur details"    [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+    
+       
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="acteur">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="nom"><strong> Nom </strong></label></div>
+            <div class="ui-grid-col-8"><input pInputText id="nom" name="nom" ngControl="nom" [(ngModel)]="acteur.nom" #nom="ngModel"  pattern="[a-zA-Z ]*" required /></div>
+             <div class="md-errors-spacer" [hidden]="nom.valid || nom.untouched">
+                
+        <div class="md-char-counter" *ngIf="nom.errors && nom.errors.required">
+            <font color="red">NOM is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="nom.errors && nom.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="prenom"> <strong>Prenom </strong></label></div>
+            <div class="ui-grid-col-8"><input pInputText id="prenom" name="prenom" ngControl="prenom" [(ngModel)]="acteur.prenom" #prenom="ngModel"  pattern="[a-zA-Z ]*" required /></div>
+        <div class="md-errors-spacer" [hidden]="prenom.valid || prenom.untouched">
+                
+        <div class="md-char-counter" *ngIf="prenom.errors && prenom.errors.required">
+            <font color="red">PRENOM is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="prenom.errors && prenom.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+        </div>
+       
+       
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="date_naiss"> <strong>Date de naissance</strong> </label></div>
+            <div class="ui-grid-col-8"><input type="date" name="date_naiss" value="{{acteur.date_naiss}}" ngControl="date_naiss" [(ngModel)]="acteur.date_naiss" #date_naiss="ngModel"   required /></div>
+            <div class="md-errors-spacer" [hidden]="date_naiss.valid || date_naiss.untouched">
+                
+        <div class="md-char-counter" *ngIf="date_naiss.errors && date_naiss.errors.required">
+          <font color="red">date_naiss is required! </font>  
+        </div>
+       
+    </div>
+        </div>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="sex"><strong>sexe</strong></label></div>
+            <div class="ui-grid-col-8"><select name="sex" ngControl="sex" [(ngModel)]="acteur.sex" #sex="ngModel" required>
+        <option *ngFor="let sex of sexs" [value]="sex.value">   
+        {{sex.value}}
+        </option>
+    </select>
+     <div class="md-errors-spacer" [hidden]="sex.valid || sex.untouched">
+                
+        <div class="md-char-counter" *ngIf="sex.errors && sex.errors.required">
+            <font color="red"> sex is required</font>  
+        </div>
+       
+    </div>
+    </div>
+        </div>
+        
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="etat_fam"><strong>Situation Familiale</strong></label></div>
+            <div class="ui-grid-col-8"><select  name="etat_fam" class="custom-select" ngControl="etat_fam"  class="form-control" [(ngModel)]="acteur.etat_fam" #etat_fam="ngModel"  required  >
+        <option *ngFor="let x of situationFam" [value]="x.value">   
+        {{x.value}}
+        </option>
+    </select>
+        </div>
+    </div>
+        
+        
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="tel"><strong>Telephone</strong></label></div>
+            <div class="ui-grid-col-8"><input pInputText id="tel" ngControl="tel" [(ngModel)]="acteur.tel" #tel="ngModel"  pattern="^[0-9]+$" required/></div>
+             <div class="md-errors-spacer" [hidden]="tel.valid || tel.untouched">
+                
+        <div class="md-char-counter" *ngIf="tel.errors && tel.errors.required">
+            <font color="red"> telephone is required !</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="tel.errors && tel.errors.pattern">
+            <font color="red"> il faut entrer seulement des entiers !</font>     
+        </div>
+    </div>
+        </div>
+       
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="tel"><strong>Etat</strong></label></div>
+            <div class="ui-grid-col-8">
+<p-toggleButton onLabel="activer" offLabel="desactiver" 
+        onIcon="fa-check-square" offIcon="fa-square" [(ngModel)]="acteur.activer"></p-toggleButton></div>
+        </div>       
+
+    
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+           
+            <button    pButton type="button"   (click)="save()" label="Enregistrer" > </button>
+            
+        </div>
+      
+    </p-footer>
+    
+    </div>
+   
+</p-dialog>
+
+
+
+
+<p-dialog header="Utilisateur Details"   novalidate [(visible)]="displayDialog1" [responsive]="true" showEffect="fade" [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="acteur">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="nom"> <strong> Nom </strong></label></div>
+            <div class="ui-grid-col-8"><input pInputText id="nom" ngControl="nom" [(ngModel)]="acteur.nom" #nom="ngModel"  pattern="[a-zA-Z ]*" required /></div>
+         <div class="md-errors-spacer" [hidden]="nom.valid || nom.untouched">
+                
+        <div class="md-char-counter" *ngIf="nom.errors && nom.errors.required">
+            <font color="red">nom is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="nom.errors && nom.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="prenom"> <strong> Prenom </strong></label></div>
+            <div class="ui-grid-col-8"><input pInputText id="prenom" ngControl="prenom" [(ngModel)]="acteur.prenom" #prenom="ngModel"  pattern="[a-zA-Z ]*" required /></div>
+        <div class="md-errors-spacer" [hidden]="prenom.valid || prenom.untouched">
+                
+        <div class="md-char-counter" *ngIf="prenom.errors && prenom.errors.required">
+            <font color="red">prenom is required ! </font> 
+        </div>
+        <div class="md-char-counter" *ngIf="prenom.errors && prenom.errors.pattern">
+             <font color="red"> il faut saisir seulement des caracteres !</font> 
+        </div>
+    </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="cin"> <strong> Cin </strong></label></div>
+            <div class="ui-grid-col-8"><input pInputText id="cin" ngControl="cin" [(ngModel)]="acteur.cin"  #cin="ngModel"  pattern="^[0-9]+$" required /></div>
+         <div class="md-errors-spacer" [hidden]="cin.valid || cin.untouched">
+                
+        <div class="md-char-counter" *ngIf="cin.errors && cin.errors.required">
+            <font color="red"> cin is required !</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="cin.errors && cin.errors.pattern">
+            <font color="red"> il faut entrer seulement des entiers !</font>     
+        </div>
+    </div>
+        </div>
+        
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="date_naiss"><strong>Date de naissance</strong></label></div>
+            <div class="ui-grid-col-8"><input type="date" name="date_naiss" value="{{acteur.date_naiss}}" [(ngModel)]="acteur.date_naiss" ngControl="date_naiss" [(ngModel)]="acteur.date_naiss" #date_naiss="ngModel"   required/></div>
+        <div class="md-errors-spacer" [hidden]="date_naiss.valid || date_naiss.untouched">
+                
+        <div class="md-char-counter" *ngIf="date_naiss.errors && date_naiss.errors.required">
+          <font color="red">date_naiss is required! </font>  
+        </div>
+       
+    </div>
+        </div>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="sex"><strong>sexe</strong></label></div>
+            <div class="ui-grid-col-8"><select name="sex"  ngControl="sex" [(ngModel)]="acteur.sex" #sex="ngModel" required>
+        <option *ngFor="let sex of sexs" [value]="sex.value">   
+        {{sex.value}}
+        </option>
+    </select>
+    <div class="md-errors-spacer" [hidden]="sex.valid || sex.untouched">
+                
+        <div class="md-char-counter" *ngIf="sex.errors && sex.errors.required">
+            <font color="red"> sex is required</font>  
+        </div>
+       
+    </div>
+    </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="email"><strong>Email</strong></label></div>
+            <div class="ui-grid-col-8"><input pInputText id="email" ngControl="email" [(ngModel)]="acteur.email" #email="ngModel"  required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" /></div>
+             <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+        <div class="md-char-counter" *ngIf="email.errors && email.errors.required">
+             <font color="red"> Email is required!</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="email.errors && email.errors.pattern">
+          <font color="red"> Email is invalid</font>   
+        </div>
+    </div>
+        </div>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="etat_fam"><strong>Situation Familiale</strong></label></div>
+            <div class="ui-grid-col-8">
+    <select  name="etat_fam" class="custom-select" ngControl="etat_fam"  class="form-control" [(ngModel)]="acteur.etat_fam" #etat_fam="ngModel"  required  >
+        <option *ngFor="let x of situationFam" [value]="x.value">   
+        {{x.value}}
+        </option>
+    </select>
+            </div>
+        </div>
+     
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="profession"><strong>Profession</strong></label></div>
+            <div class="ui-grid-col-8"><select name="profession" ngControl="profession" [(ngModel)]="acteur.profession" #profession="ngModel" required>
+        <option *ngFor="let profession of professions" [value]="profession.nom">   
+        {{profession.nom}}
+        </option>
+    </select>
+    <div class="md-errors-spacer" [hidden]="profession.valid || profession.untouched">
+                
+        <div class="md-char-counter" *ngIf="profession.errors && profession.errors.required">
+            <font color="red"> profession is required</font>  
+        </div>
+       
+    </div>
+    </div>
+        </div>
+
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="tel"><strong>Telephone</strong></label></div>
+            <div class="ui-grid-col-8"><input pInputText id="tel" [(ngModel)]="acteur.tel" ngControl="tel"  #tel="ngModel"  pattern="^[0-9]+$" required /></div>
+       <div class="md-errors-spacer" [hidden]="tel.valid || tel.untouched">
+                
+        <div class="md-char-counter" *ngIf="tel.errors && tel.errors.required">
+            <font color="red"> telephone is required !</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="tel.errors && tel.errors.pattern">
+            <font color="red"> il faut entrer seulement des entiers !</font>     
+        </div>
+    </div>
+        </div>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="type medecin"><strong>Type medecin</strong></label></div>
+            <div class="ui-grid-col-8"><input id="type-medecin" type="text" size="30"   name="typeMedecin" pInputText [disabled]="disabled" [(ngModel)]="acteur.type_medecin" />
+
+<button type="button" (click)="toggleDisabled()" pButton label="Type medecin"> </button></div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="tel">etat</label></div>
+            <div class="ui-grid-col-8">
+<p-toggleButton onLabel="activer" offLabel="desactiver" 
+        onIcon="fa-check-square" offIcon="fa-square" [(ngModel)]="acteur.activer"></p-toggleButton></div>
+        </div>       
+
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            
+            <button  pButton type="button"  icon="fa-check" (click)="save()" label="Enregistrer" ></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+
+
+
+
+
+
+
+

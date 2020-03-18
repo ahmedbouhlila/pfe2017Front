@@ -1,0 +1,169 @@
+﻿<p-dialog  width="300" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
+    [style]="{'overflow':'visible'}" [resizable]="false">
+     <p-header><i class="fa fa-user-md" aria-hidden="true"></i> Visite</p-header>
+<div class="ui-grid-row">
+            <div class="ui-grid-col-8"><label for="vin">Nom du patient </label></div>
+            <div class="ui-grid-col-8">  <strong> {{event1.nom}} </strong>  </div>
+        </div>
+
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            
+            <button type="button" pButton icon="fa-check" (click)="visite()" label="Commencer visite" ></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+
+
+
+
+<table>
+ <tr> <td style="width:70%" valign="top" >  
+
+
+
+<p-schedule     [events]="events" [header]="header" defaultDate="2017-06-01" [eventLimit]="4" [editable]="true"
+            (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
+
+</td>
+<td style="width:30%" >  
+
+
+<button pButton type="button" (click)="add()" icon="fa fa-plus" iconPos="left" label="Ajouter creneaux"></button>
+<br/>
+<br/>
+      <div class="card">
+<div class="card-header" style="background: #1E90FF ;">
+          <i style="color: white;" class="fa fa-calendar" aria-hidden="true"></i><strong><span style="color : white;" >Creneaux du Lundi au Vendredi</span></strong>
+        </div>
+
+
+ <div class="card-block">
+           <table class="table table-bordered">
+  <tr><th> Heure de debut  => Heure de fin  </th></tr>             
+<tr     *ngFor="let item of creneauxsemaine"   >
+                
+                <td style="text-align:center;">{{item.hdebut}}:{{item.mdebut}}  => {{item.hfin}}:{{item.mfin}}  </td>
+                
+            </tr>
+</table>
+</div>
+</div>
+
+   <div class="card">
+<div class="card-header" style="background: #1E90FF ;">
+          <i style="color: white;" class="fa fa-calendar" aria-hidden="true"></i><strong><span style="color : white;" >Creneaux du samedi</span></strong>
+        </div>
+<div class="card-block">
+       <table class="table table-bordered">
+  <tr><th> Heure de debut  => Heure de fin  </th></tr>             
+<tr     *ngFor="let item of creneauxsamedi"  >
+                
+                <td style="text-align:center;">{{item.hdebut}}:{{item.mdebut}}  => {{item.hfin}}:{{item.mfin}}  </td>
+                
+            </tr>
+</table>  
+</div>
+</div>
+
+
+
+
+</td></tr></table>
+
+
+
+
+
+
+  
+
+
+<p-dialog  width="30%" [(visible)]="visible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
+    [style]="{'overflow':'visible'}" [resizable]="false">
+     <p-header><i style="color: white;" class="fa fa-pencil-square-o" aria-hidden="true"></i><strong><span style="color : white;" >Ajouter un creneaux</span></strong></p-header>
+
+
+
+    <form name="form" (ngSubmit)="f.form.valid && ajoutcreneaux()" #f="ngForm" novalidate>
+        
+       <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="hf-email">Heude de debut</label>
+              <div class="col-md-3">
+
+             <p-spinner type="number" maxlength="2" size="7"  name="hdebut" [(ngModel)]="model.hdebut" #hdebut="ngModel" required [min]="0" [max]="23"></p-spinner>
+            <div *ngIf="f.submitted && !hdebut.valid" class="help-block"></div>
+        </div>
+        </div> 
+ <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="prenom">Heure de fin</label>
+              <div class="col-md-3">
+<p-spinner  type="number" maxlength="2" size="7"  name="hfin" [(ngModel)]="model.hfin" #hfin="ngModel" required [min]="0" [max]="23"></p-spinner>
+          
+            <div *ngIf="f.submitted && !hfin.valid" class="help-block"></div>
+        </div>
+</div>
+ <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="hf-email">Minute de debut</label>
+              <div class="col-md-3">
+                  <p-spinner  type="number" maxlength="2"  size="7"  name="mdebut" [(ngModel)]="model.mdebut" #mdebut="ngModel" required [min]="0" [max]="59"></p-spinner>
+           
+            <div *ngIf="f.submitted && !mdebut.valid" class="help-block"></div>
+        </div>
+
+
+</div>
+
+
+ <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="age">Minute de fin</label>
+              <div class="col-md-3">
+                    <p-spinner type="number" maxlength="2" size="7"  name="mfin" [(ngModel)]="model.mfin" #mfin="ngModel" required [min]="0" [max]="59"></p-spinner>
+           
+            <div *ngIf="f.submitted && !mfin.valid" class="help-block"></div>
+        </div>
+</div>
+ <div class="form-group row">
+              <label class="col-md-5 form-control-label"  for="hf-email">Periode</label>
+              <div class="col-md-6">
+
+    <select name="periode" class="custom-select"[(ngModel)]="model.periode">
+        <option *ngFor="let x of periodes" [value]="x.valeur">   
+        {{x.value}}
+        </option>
+    </select>
+</div>
+</div>
+  
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Ajouter</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

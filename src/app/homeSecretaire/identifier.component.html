@@ -1,0 +1,109 @@
+<div style="text-align:center">
+<br/>
+
+
+ 
+
+
+<div> <Strong> Veuillez s'il vous plaît saisir CIN pour identifier les patients , Merci </Strong>
+  </div>
+  <br/>
+  <div>
+       <form (submit)="getpatient()"> <input  ngControl="cin" [(ngModel)]="model.cin" name="cin" placeholder="CIN..." #cin="ngModel"  pattern="^[0-9]+$" required ><button [disabled]= " !cin.valid" pButton type="submit" icon="fa-check" iconPos="right" label="Identifier" ></button> </form>
+  <div class="md-errors-spacer" [hidden]="cin.valid || cin.untouched">
+                
+        <div class="md-char-counter" *ngIf="cin.errors && cin.errors.required">
+            <font color="red"> cin is required !</font>   
+        </div>
+        <div class="md-char-counter" *ngIf="cin.errors && cin.errors.pattern">
+            <font color="red"> il faut entrer seulement des entiers !</font>     
+        </div>
+    </div>
+  </div>
+   </div>
+<hr/>
+
+
+
+
+       
+ 
+
+
+
+
+<div *ngIf="identifier" >
+
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-align-justify"></i> <Strong> <span style="color : white;" >Fiche du patient </span></Strong>
+        </div>
+        <div class="card-block">
+           <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="text-align:center">Information</th>
+                <th style="text-align:center">Patient</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nom</td>
+                <td>{{patients[0].nom_patient}}</td>
+               
+              </tr>
+              <tr>
+                <td>Prenom</td>
+                <td>{{patients[0].prenom_patient}}</td>
+               
+              </tr>
+              <tr>
+                <td>Date de naissance</td>
+                <td>{{patients[0].date_naiss}}</td>
+               
+              </tr>
+              <tr>
+                <td>num CIN</td>
+                <td>{{patients[0].cin}}</td>
+                
+              </tr>
+              <tr>
+                <td>sexe</td>
+                <td>{{patients[0].sex}}</td>
+               
+              </tr>
+            </tbody>
+          </table>
+         
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+
+<div class="card-block">
+           <br/>
+           <br/>
+          <button type="button" class="btn btn-outline-info btn-lg btn-block"(click)="rendezvous()">Prendre un rendez vous </button>
+          <br/>
+           <br/>
+          <button type="button" class="btn btn-outline-warning btn-lg btn-block"(click)="modifierpatient()">Modifier la fiche du patient </button>
+          <br/>
+           <br/>
+          <button type="button" class="btn btn-outline-danger btn-lg btn-block"(click)="facture()">Payement </button>   
+        </div>
+
+
+
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+
+  <!--/.row-->
+
+  <!--/.row-->
+</div>  
+</div>

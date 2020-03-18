@@ -1,0 +1,34 @@
+﻿<div  style="width:100%">
+
+<p-growl [value]="msgs"> </p-growl>
+
+<img src="/src/img/wevioo.png" id="bg" alt="">
+
+
+
+  <br><br><br><br><br><br>
+<form name="login-form" class="login-form">
+		<div class="header">
+		<h1>Bienvenu </h1>
+		<span> Remplissez Les Champs* </span>
+		</div>
+	
+		<div class="content">
+<i class="fa fa-user-md" aria-hidden="true"></i>
+		<input name="username" type="text" class="input username" placeholder="Username" [(ngModel)]="model.username" required />
+		<div class="user-icon"></div>
+		<br><i class="fa fa-key" aria-hidden="true"></i>
+		<input name="password" type="password" class="input password" placeholder="Password" [(ngModel)]="model.password" />
+		<div class="pass-icon"></div>		
+		</div>
+
+		<div class="footer">
+			<i class="fa fa-sign-in" aria-hidden="true"></i>
+		<button [disabled]="loading" class="btn btn-primary" (click)="login()" >Login</button>
+		<br><br>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+				 <a [routerLink]="['/motdepassoublier']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"> Mot de passe oublier ? </a>
+		</div>
+  </form>
+</div>
+

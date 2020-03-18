@@ -1,0 +1,92 @@
+<div style="text-align:center">
+ 
+
+
+<div> <Strong> Veuillez s'il vous plaît saisir CIN pour identifier les patients , Merci </Strong>
+       <form (submit)="getpatient()"> <input [(ngModel)]="model.cin" name="cin" placeholder="CIN..." ><button pButton type="submit" icon="fa-check" iconPos="right" label="Identifier"></button> </form>
+ 
+  </div>
+<hr/>
+
+
+       
+ 
+
+
+
+
+<div *ngIf="identifier" >
+
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+      <div class="card-header" style="background: #63c2de ;">
+          <i style="color: white;" class="fa fa-align-justify"></i> <Strong> <span style="color : white;" >Fiche du patient </span></Strong>
+        </div>
+        <div class="card-block">
+           <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="text-align:center">Information</th>
+                <th style="text-align:center">Patient</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nom</td>
+                <td>{{patients[0].nom_patient}}</td>
+               
+              </tr>
+              <tr>
+                <td>Prenom</td>
+                <td>{{patients[0].prenom_patient}}</td>
+               
+              </tr>
+              <tr>
+                <td>Date de naissance</td>
+                <td>{{patients[0].date_naiss}}</td>
+               
+              </tr>
+              <tr>
+                <td>num CIN</td>
+                <td>{{patients[0].cin}}</td>
+                
+              </tr>
+              <tr>
+                <td>sexe</td>
+                <td>{{patients[0].sex}}</td>
+               
+              </tr>
+            </tbody>
+          </table>
+         
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+
+<div class="card-block">
+           <br/>
+           <br/>
+          <button type="button" class="btn btn-outline-info btn-lg btn-block"(click)="gestionordonnances()">gestion des ordonnances</button>
+          <br/>
+           <br/>
+         
+          <br/>
+           <br/>
+         
+        </div>
+
+
+
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+
+  <!--/.row-->
+
+  <!--/.row-->
+</div>  
+</div>

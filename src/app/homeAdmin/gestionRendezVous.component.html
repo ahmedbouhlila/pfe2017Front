@@ -1,0 +1,88 @@
+
+
+   <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Rechercher">
+</div>
+
+<p-dataTable #dt [emptyMessage]="emptymessage" [value]="rendezvous" [rows]="10" [paginator]="true" [pageLinks]="3" [globalFilter]="gb" [rowsPerPageOptions]="[5,10,20]" selectionMode="single" [(selection)]="selected" [responsive]="true">
+    <p-header>Liste des RDV </p-header>
+    <p-column field="jour" header="jour"  [sortable]="true" ></p-column>
+    <p-column field="hdebut" header="Heure debut" [sortable]="true" ></p-column>
+    <p-column field="mdebut" header="Minute debut" [sortable]="true"></p-column>
+    <p-column field="hfin" header="heure fin" [sortable]="true"></p-column>
+    <p-column field="mfin" header="Minute fin" [sortable]="true"></p-column>
+    <p-column field="nomPatient" header="nom patient" [sortable]="true"></p-column>
+    <p-column field="prenomPatient" header="prenom patient"[sortable]="true"></p-column>
+    <p-column field="nomMedecin" header="nom medecin" [sortable]="true"></p-column>
+    <p-column field="prenomMedecin" header="prenom medecin" [sortable]="true"></p-column>
+    <p-column field="typeMedecin" header="type medecin" [sortable]="true"></p-column>
+    <p-footer><div class="ui-helper-clearfix" style="width:100%">
+        <button type="button" pButton icon="fa-plus" style="float:left" (click)="effacer()" label="effacer">  </button>
+        <button   type="button" pButton icon="fa-file-o" iconPos="right" label="CSV" (click)="dt.exportCSV()" style="float:right ; background: green "></button>
+         <button   aria-hidden="true" type="button" pButton icon="fa-file-o" iconPos="right" label="PDF" (click)="exportPDF()" style="float:right ; background: red"></button>
+        </div></p-footer>
+</p-dataTable>
+
+<!--
+    </div>
+<h1> selectionner un patient pour prendez un rendez vous </h1>
+  <p-autoComplete [(ngModel)]="nomPatient" [suggestions]="filteredPatient" (completeMethod)="filterCountrySingle($event)" field="nom_patient"  [size]="30"
+    placeholder="ecrire nom patient" [minLength]="0"   >
+  
+    </p-autoComplete>
+
+<button class="btn btn-sm btn-outline-primary" (click)="rendez()"> prise de rendez vous </button>  
+
+
+
+
+
+
+
+
+
+
+
+<p-dialog header="acteur Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="model">
+       
+        
+      
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="medecin">liste medecin</label></div>
+            <div class="ui-grid-col-8"> <select name="user" [(ngModel)]="model.id_medecin">
+        <option *ngFor="let user of medecins" [value]="user.id_user">   
+       Dr {{user.nom}} {{user.prenom}} {{user.type_medecin}} 
+        </option>
+    </select></div>
+
+
+<ngb-datepicker #dp [(ngModel)]="model1" (navigate)="date = $event.next"  ></ngb-datepicker>
+
+
+
+
+
+       
+       <div class="ui-grid-col-4"><label for="medecin">voir creneaux du medecin</label></div>
+            <div class="ui-grid-col-8"> <button class="btn btn-sm btn-outline-primary" (click)="GetCreneaux()">voir </button> <select name="user" [(ngModel)]="idcreneaux">
+        <option *ngFor="let user of creneaux"  [value]="user.id_creneaux">   
+   {{user.hdebut}}:{{user.mdebut}} =>{{user.hfin}}:{{user.mfin}} 
+        </option>
+    </select></div>
+       
+       
+       
+        </div>       
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            
+            <button type="button" pButton icon="fa-check" (click)="prendreRendezVous()" label="voir">prendre Rendez Vous</button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+
+-->
